@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1001",
+    "author": "CuentaEjemplo",
+    "publishedAt": "2026-08-20T14:15:00.000Z",
+    "text": "Fortalecemos la Contraloría Social con participación ciudadana.",
+    "url": "https://x.com/CuentaEjemplo/status/1001",
+    "hasVideo": false,
+    "hasPhoto": true,
+    "mediaUrls": ["https://pbs.twimg.com/media/example1.jpg"]
+  },
+  {
+    "id": "1002",
+    "author": "CuentaEjemplo",
+    "publishedAt": "2026-08-21T20:35:00.000Z",
+    "text": "Consulta los requisitos de la convocatoria de Transparencia en corto.",
+    "url": "https://x.com/CuentaEjemplo/status/1002",
+    "hasVideo": false,
+    "hasPhoto": true,
+    "mediaUrls": ["https://pbs.twimg.com/media/example2.jpg"]
+  },
+  {
+    "id": "1003",
+    "author": "CuentaEjemplo",
+    "publishedAt": "2026-08-22T02:05:00.000Z",
+    "text": "La ética y la integridad fortalecen el servicio público.",
+    "url": "https://x.com/CuentaEjemplo/status/1003",
+    "hasVideo": true,
+    "hasPhoto": false,
+    "mediaUrls": []
+  },
+  {
+    "id": "1004",
+    "author": "CuentaEjemplo",
+    "publishedAt": "2026-08-23T16:45:00.000Z",
+    "text": "Mensaje institucional de seguimiento.",
+    "url": "https://x.com/CuentaEjemplo/status/1004",
+    "hasVideo": false,
+    "hasPhoto": false,
+    "mediaUrls": []
+  }
+]
