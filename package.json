@@ -1,0 +1,6 @@
+[
+  { "code": "A", "startHour": 0, "endHour": 5 },
+  { "code": "B", "startHour": 6, "endHour": 11 },
+  { "code": "C", "startHour": 12, "endHour": 17 },
+  { "code": "D", "startHour": 18, "endHour": 23 }
+]
