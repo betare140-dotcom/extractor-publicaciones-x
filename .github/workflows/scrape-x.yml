@@ -1,0 +1,80 @@
+name: Extraer publicaciones de X
+
+on:
+  workflow_dispatch:
+    inputs:
+      perfiles:
+        description: "Uno o varios usuarios de X, separados por coma"
+        required: true
+        type: string
+      fecha_desde:
+        description: "Fecha inicial (YYYY-MM-DD)"
+        required: true
+        type: string
+      fecha_hasta:
+        description: "Fecha final (YYYY-MM-DD)"
+        required: true
+        type: string
+      maximo:
+        description: "Máximo de publicaciones (1-5000)"
+        required: true
+        default: "1000"
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: scrape-x-${{ github.actor }}
+  cancel-in-progress: false
+
+jobs:
+  extraer:
+    name: Extraer y generar archivos
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Descargar el programa
+        uses: actions/checkout@v4
+
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: scraper/package-lock.json
+
+      - name: Instalar dependencias del scraper
+        working-directory: scraper
+        run: npm ci --no-audit --no-fund
+
+      - name: Instalar navegador remoto
+        working-directory: scraper
+        run: npx playwright install --with-deps chromium
+
+      - name: Verificar reglas de clasificación
+        working-directory: scraper
+        run: npm test
+
+      - name: Ejecutar extracción
+        env:
+          SCRAPER_PERFILES: ${{ inputs.perfiles }}
+          SCRAPER_DESDE: ${{ inputs.fecha_desde }}
+          SCRAPER_HASTA: ${{ inputs.fecha_hasta }}
+          SCRAPER_MAXIMO: ${{ inputs.maximo }}
+        run: >-
+          node scraper/src/cli.mjs
+          --perfiles="$SCRAPER_PERFILES"
+          --desde="$SCRAPER_DESDE"
+          --hasta="$SCRAPER_HASTA"
+          --maximo="$SCRAPER_MAXIMO"
+
+      - name: Preparar descarga
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reporte-x-${{ github.run_number }}
+          path: scraper/output/
+          if-no-files-found: error
+          retention-days: 1
+          compression-level: 6
